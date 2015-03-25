@@ -6,6 +6,8 @@ Introduction
 
 Various resources for Eclat Digital - Ocean Light Simulator: http://www.eclat-digital.com/
 
+..  image:: https://raw.githubusercontent.com/colour-science/colour-ocean/master/colour_ocean/images/neutral_room.png
+
 About
 -----
 

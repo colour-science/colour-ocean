@@ -6,11 +6,11 @@ Introduction
 
 Various resources for **Eclat Digital - Ocean Light Simulator**: http://www.eclat-digital.com/
 
-- `csv/colour <https://github.com/colour-science/colour-ocean/colour_ocean/csv/colour>` directory contains `Colour <https://github.com/colour-science/colour>` spectral dataset.
-- `csv/rii <https://github.com/colour-science/colour-ocean/colour_ocean/csv/rii>` directory contains `refractiveindex.info <http://refractiveindex.info/>` refractive spectral dataset.
-- `scenes <https://github.com/colour-science/colour-ocean/colour_ocean/scenes>` directory contains various **Ocean** scenes,
+- `csv/colour <https://github.com/colour-science/colour-ocean/colour_ocean/csv/colour>`_ directory contains `Colour <https://github.com/colour-science/colour>` spectral dataset.
+- `csv/rii <https://github.com/colour-science/colour-ocean/colour_ocean/csv/rii>`_ directory contains `refractiveindex.info <http://refractiveindex.info/>` refractive spectral dataset.
+- `scenes <https://github.com/colour-science/colour-ocean/colour_ocean/scenes>`_ directory contains various **Ocean** scenes.
 
-..  image:: https://raw.githubusercontent.com/colour-science/colour-ocean/master/colour_ocean/images/neutral_room.png
+..  image:: https://raw.githubusercontent.com/colour-science/colour-ocean/master/colour_ocean/images/happy_buddha_daylight_room.png
 
 About
 -----

@@ -67,7 +67,7 @@ COLOUR QUALITY
 - Ohno, Y., & Davis, W. (2008). NIST CQS simulation 7.4. Retrieved from http://cie2.nist.gov/TC1-69/NIST CQS simulation 7.4.xls
 """
 
-DEFAULT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv')
+DEFAULT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'colour')
 
 
 def write_spds(spds, directory):

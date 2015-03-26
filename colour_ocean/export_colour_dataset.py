@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-Export Dataset
-==============
+Export Colour Dataset
+=====================
 
 Exports *Colour* dataset for "Eclat Digital - Ocean" renderer.
 """
 
 import codecs
 import os
-import re
 
 import colour
+from colour_ocean.common import write_spds
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2013 - 2015 - Colour Developers'
@@ -22,8 +22,7 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['BIBLIOGRAPHY',
-           'DEFAULT_DIRECTORY',
-           'write_spds',
+           'OUTPUT_DIRECTORY',
            'export_csv_dataset',
            'write_bibliography']
 
@@ -67,23 +66,10 @@ COLOUR QUALITY
 - Ohno, Y., & Davis, W. (2008). NIST CQS simulation 7.4. Retrieved from http://cie2.nist.gov/TC1-69/NIST CQS simulation 7.4.xls
 """
 
-DEFAULT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'colour')
+OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'colour')
 
 
-def write_spds(spds, directory):
-    not os.path.exists(directory) and os.makedirs(directory)
-
-    for name, spd in spds.items():
-        wl, values = spd.wavelengths * 1e-9, spd.values
-        spd = colour.SpectralPowerDistribution(name,
-                                               dict(zip(wl, values)))
-        name = re.sub(r'[^a-zA-Z0-9_\-\.\(\)]', '-', name)
-        colour.write_spds_to_csv_file({name: spd},
-                                      os.path.join(directory,
-                                                   '{0}.csv'.format(name)))
-
-
-def export_csv_dataset(directory=DEFAULT_DIRECTORY, dataset='all'):
+def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
     if dataset in ('all', 'illuminants'):
         output_directory = os.path.join(directory, 'illuminants')
         write_spds(colour.ILLUMINANTS_RELATIVE_SPDS, output_directory)
@@ -123,7 +109,7 @@ def export_csv_dataset(directory=DEFAULT_DIRECTORY, dataset='all'):
         write_spds(colour.VS_SPDS, output_directory)
 
 
-def write_bibliography(directory=DEFAULT_DIRECTORY):
+def write_bibliography(directory=OUTPUT_DIRECTORY):
     not os.path.exists(directory) and os.makedirs(directory)
 
     path = os.path.join(directory, 'BIBLIOGRAPHY.rst')

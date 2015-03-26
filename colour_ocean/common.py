@@ -30,11 +30,11 @@ def replace(string, data):
     return string
 
 
-def write_spds(spds, directory):
+def write_spds(spds, directory, unit_conversion):
     not os.path.exists(directory) and os.makedirs(directory)
 
     for name, spd in spds.items():
-        wl, values = spd.wavelengths * 1e-9, spd.values
+        wl, values = spd.wavelengths * unit_conversion, spd.values
         spd = colour.SpectralPowerDistribution(name,
                                                dict(zip(wl, values)))
         name = re.sub(r'\\|/', '', name)

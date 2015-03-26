@@ -67,7 +67,7 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, library=LIBRARY):
                         data = np.array([float(x) for x in
                                          content['DATA'][0]['data'].split()])
                         data = np.reshape(data, (-1, 3))
-                        wavelengths = data[..., 0] * 1e-6
+                        wavelengths = data[..., 0]
                         n = data[..., 1]
                         k = data[..., 2]
 
@@ -76,7 +76,9 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, library=LIBRARY):
                                 'k': colour.SpectralPowerDistribution(
                                     'k', dict(zip(wavelengths, k)))}
 
-                        write_spds(spds, output_directory)
+                        write_spds(spds,
+                                   output_directory,
+                                   unit_conversion=1e-6)
 
 
 if __name__ == '__main__':

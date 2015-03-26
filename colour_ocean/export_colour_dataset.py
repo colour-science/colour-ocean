@@ -72,11 +72,15 @@ OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'colour')
 def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
     if dataset in ('all', 'illuminants'):
         output_directory = os.path.join(directory, 'illuminants')
-        write_spds(colour.ILLUMINANTS_RELATIVE_SPDS, output_directory)
+        write_spds(colour.ILLUMINANTS_RELATIVE_SPDS,
+                   output_directory,
+                   unit_conversion=1e-9)
 
     if dataset in ('all', 'light_sources'):
         output_directory = os.path.join(directory, 'light_sources')
-        write_spds(colour.LIGHT_SOURCES_RELATIVE_SPDS, output_directory)
+        write_spds(colour.LIGHT_SOURCES_RELATIVE_SPDS,
+                   output_directory,
+                   unit_conversion=1e-9)
 
     if dataset in ('all', 'cmfs'):
         base_output_directory = os.path.join(directory, 'cmfs')
@@ -88,7 +92,8 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
 
             for channel in ('x', 'y', 'z'):
                 write_spds({cmfs.mapping[channel]: getattr(cmfs, channel)},
-                           output_directory)
+                           output_directory,
+                           unit_conversion=1e-9)
 
     if dataset in ('all', 'characterisation'):
         base_output_directory = os.path.join(directory,
@@ -100,13 +105,13 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
 
             output_directory = os.path.join(base_output_directory, name)
 
-            write_spds(colour_checker, output_directory)
+            write_spds(colour_checker, output_directory, unit_conversion=1e-9)
 
     if dataset in ('all', 'quality'):
         output_directory = os.path.join(directory, 'quality', 'TCS')
-        write_spds(colour.TCS_SPDS, output_directory)
+        write_spds(colour.TCS_SPDS, output_directory, unit_conversion=1e-9)
         output_directory = os.path.join(directory, 'quality', 'VS')
-        write_spds(colour.VS_SPDS, output_directory)
+        write_spds(colour.VS_SPDS, output_directory, unit_conversion=1e-9)
 
 
 def write_bibliography(directory=OUTPUT_DIRECTORY):

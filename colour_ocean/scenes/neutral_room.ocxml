@@ -87,9 +87,7 @@
 		</filtershader>
 	</material>
 	<material type="lambertian" name="colour rendition chart background">
-		<filtershader type="uniform" name="diffuse">
-			<spectrum type="rgb" name="spectrum" rgb="0.1 0.1 0.1" gamma="1"/>
-		</filtershader>
+		<filtershader type="constant" name="diffuse" value="0.05"/>
 	</material>
 	<material type="lambertian" name="yellow green">
 		<filtershader type="uniform" name="diffuse">

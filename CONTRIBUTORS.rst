@@ -4,7 +4,7 @@ Contributors
 Colour - Ocean
 --------------
 
--   **Thomas Mansencal**, *Visual Effects Artist*
+-   **Thomas Mansencal**, *Visual Effects Artist @ Weta Digital*
 
     Project coordination.
     

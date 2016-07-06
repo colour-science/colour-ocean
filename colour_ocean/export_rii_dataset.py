@@ -64,7 +64,7 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, library=LIBRARY):
 
                     data_type = (content['DATA'][0]['type'])
                     if data_type == 'tabulated nk':
-                        data = np.array([float(x) for x in
+                        data = np.array([np.float_(x) for x in
                                          content['DATA'][0]['data'].split()])
                         data = np.reshape(data, (-1, 3))
                         wavelengths = data[..., 0]

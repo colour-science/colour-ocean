@@ -11,8 +11,13 @@ ILLUMINANTS
 LIGHT SOURCES
 -------------
 
-- Pointer, M. R. (1980). Pointer’s Gamut Data. Retrieved from http://www.cis.rit.edu/research/mcsl2/online/PointerData.xls
+- Pointer, M. R. (1980). Pointer's Gamut Data. Retrieved from http://www.cis.rit.edu/research/mcsl2/online/PointerData.xls
 - Ohno, Y., & Davis, W. (2008). NIST CQS simulation 7.4. Retrieved from http://cie2.nist.gov/TC1-69/NIST CQS simulation 7.4.xls
+
+CAMERAS
+-------
+
+- Darrodi, M. M., Finlayson, G., Goodman, T., & Mackiewicz, M. (2015). Reference data set for camera spectral sensitivity estimation. Journal of the Optical Society of America A, 32(3), 381. doi:10.1364/JOSAA.32.000381
 
 COLOUR MATCHING FUNCTIONS
 -------------------------
@@ -36,3 +41,8 @@ COLOUR QUALITY
 --------------
 
 - Ohno, Y., & Davis, W. (2008). NIST CQS simulation 7.4. Retrieved from http://cie2.nist.gov/TC1-69/NIST CQS simulation 7.4.xls
+
+DISPLAYS
+--------
+
+- Machado, G. (2010). A model for simulation of color vision deficiency and a color contrast enhancement technique for dichromats. Retrieved from http://www.lume.ufrgs.br/handle/10183/26950

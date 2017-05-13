@@ -12,6 +12,12 @@ import codecs
 import os
 
 import colour
+from colour.characterisation.dataset.displays.crt import (
+    CRT_DISPLAYS_RGB_PRIMARIES)
+from colour.characterisation.dataset.displays.lcd import (
+    LCD_DISPLAYS_RGB_PRIMARIES)
+from colour.characterisation.dataset.cameras.dslr import (
+    DSLR_CAMERAS_RGB_SPECTRAL_SENSITIVITIES)
 from colour_ocean.common import write_spds
 
 __author__ = 'Colour Developers'
@@ -39,8 +45,13 @@ ILLUMINANTS
 LIGHT SOURCES
 -------------
 
-- Pointer, M. R. (1980). Pointer’s Gamut Data. Retrieved from http://www.cis.rit.edu/research/mcsl2/online/PointerData.xls
+- Pointer, M. R. (1980). Pointer's Gamut Data. Retrieved from http://www.cis.rit.edu/research/mcsl2/online/PointerData.xls
 - Ohno, Y., & Davis, W. (2008). NIST CQS simulation 7.4. Retrieved from http://cie2.nist.gov/TC1-69/NIST CQS simulation 7.4.xls
+
+CAMERAS
+-------
+
+- Darrodi, M. M., Finlayson, G., Goodman, T., & Mackiewicz, M. (2015). Reference data set for camera spectral sensitivity estimation. Journal of the Optical Society of America A, 32(3), 381. doi:10.1364/JOSAA.32.000381
 
 COLOUR MATCHING FUNCTIONS
 -------------------------
@@ -64,6 +75,11 @@ COLOUR QUALITY
 --------------
 
 - Ohno, Y., & Davis, W. (2008). NIST CQS simulation 7.4. Retrieved from http://cie2.nist.gov/TC1-69/NIST CQS simulation 7.4.xls
+
+DISPLAYS
+--------
+
+- Machado, G. (2010). A model for simulation of color vision deficiency and a color contrast enhancement technique for dichromats. Retrieved from http://www.lume.ufrgs.br/handle/10183/26950
 """
 
 OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'colour')
@@ -89,23 +105,47 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
                 continue
 
             output_directory = os.path.join(base_output_directory, name)
-
             for channel in ('x', 'y', 'z'):
                 write_spds({cmfs.mapping[channel]: getattr(cmfs, channel)},
                            output_directory,
                            unit_conversion=1e-9)
 
     if dataset in ('all', 'characterisation'):
-        base_output_directory = os.path.join(directory,
-                                             'characterisation',
-                                             'colour_checkers')
+        base_output_directory = os.path.join(
+            directory, 'characterisation', 'colour_checkers')
         for name, colour_checker in colour.COLOURCHECKERS_SPDS.items():
             if name in ('babel_average', 'cc_ohta'):
                 continue
 
             output_directory = os.path.join(base_output_directory, name)
-
             write_spds(colour_checker, output_directory, unit_conversion=1e-9)
+
+        base_output_directory = os.path.join(
+            directory, 'characterisation', 'cameras', 'dslr')
+        for name, dslr in DSLR_CAMERAS_RGB_SPECTRAL_SENSITIVITIES.items():
+            output_directory = os.path.join(base_output_directory, name)
+            for channel in ('x', 'y', 'z'):
+                write_spds({dslr.mapping[channel]: getattr(dslr, channel)},
+                           output_directory,
+                           unit_conversion=1e-9)
+
+        base_output_directory = os.path.join(
+            directory, 'characterisation', 'displays', 'crt')
+        for name, crt in CRT_DISPLAYS_RGB_PRIMARIES.items():
+            output_directory = os.path.join(base_output_directory, name)
+            for channel in ('x', 'y', 'z'):
+                write_spds({crt.mapping[channel]: getattr(crt, channel)},
+                           output_directory,
+                           unit_conversion=1e-9)
+
+        base_output_directory = os.path.join(
+            directory, 'characterisation', 'displays', 'lcd')
+        for name, lcd in LCD_DISPLAYS_RGB_PRIMARIES.items():
+            output_directory = os.path.join(base_output_directory, name)
+            for channel in ('x', 'y', 'z'):
+                write_spds({lcd.mapping[channel]: getattr(lcd, channel)},
+                           output_directory,
+                           unit_conversion=1e-9)
 
     if dataset in ('all', 'quality'):
         output_directory = os.path.join(directory, 'quality', 'TCS')

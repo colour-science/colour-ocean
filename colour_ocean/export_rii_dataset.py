@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Export Refractive Index Info Dataset
 ====================================
@@ -24,16 +23,12 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['OUTPUT_DIRECTORY',
-           'LIBRARY',
-           'export_csv_dataset',
-           'write_bibliography']
+__all__ = [
+    'OUTPUT_DIRECTORY', 'LIBRARY', 'export_csv_dataset', 'write_bibliography'
+]
 
-LIBRARY = os.path.join(os.path.dirname(__file__),
-                       'resources',
-                       'rii',
-                       'database',
-                       'library.yml')
+LIBRARY = os.path.join(
+    os.path.dirname(__file__), 'resources', 'rii', 'database', 'library.yml')
 
 OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'rii')
 
@@ -49,36 +44,40 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, library=LIBRARY):
             elif shelved.get('BOOK'):
                 book_name = shelved['BOOK']
                 for page in shelved['content']:
-                    page_name = replace(page['PAGE'], {'α': 'alpha',
-                                                       'β': 'beta',
-                                                       'γ': 'gamma'})
+                    page_name = replace(page['PAGE'], {
+                        'α': 'alpha',
+                        'β': 'beta',
+                        'γ': 'gamma'
+                    })
                     path = os.path.join(library_directory, page['path'])
-                    content = yaml.load(codecs.open(path,
-                                                    encoding='utf-8',
-                                                    errors='ignore'))
+                    content = yaml.load(
+                        codecs.open(path, encoding='utf-8', errors='ignore'))
 
-                    output_directory = os.path.join(directory,
-                                                    shelf_name,
-                                                    book_name,
-                                                    page_name)
+                    output_directory = os.path.join(directory, shelf_name,
+                                                    book_name, page_name)
 
                     data_type = (content['DATA'][0]['type'])
                     if data_type == 'tabulated nk':
-                        data = np.array([np.float_(x) for x in
-                                         content['DATA'][0]['data'].split()])
+                        data = np.array([
+                            np.float_(x)
+                            for x in content['DATA'][0]['data'].split()
+                        ])
                         data = np.reshape(data, (-1, 3))
                         wavelengths = data[..., 0]
                         n = data[..., 1]
                         k = data[..., 2]
 
-                        spds = {'n': colour.SpectralPowerDistribution(
-                            'n', dict(zip(wavelengths, n))),
-                                'k': colour.SpectralPowerDistribution(
-                                    'k', dict(zip(wavelengths, k)))}
+                        spds = {
+                            'n':
+                            colour.SpectralPowerDistribution(
+                                dict(zip(wavelengths, n)), name='n'),
+                            'k':
+                            colour.SpectralPowerDistribution(
+                                dict(zip(wavelengths, k)), name='k')
+                        }
 
-                        write_spds(spds,
-                                   output_directory,
-                                   unit_conversion=1e-6)
+                        write_spds(
+                            spds, output_directory, unit_conversion=1e-6)
 
 
 if __name__ == '__main__':

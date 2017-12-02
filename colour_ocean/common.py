@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Common Utilities
 ================
@@ -20,8 +19,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['replace',
-           'write_spds']
+__all__ = ['replace', 'write_spds']
 
 
 def replace(string, data):
@@ -35,11 +33,9 @@ def write_spds(spds, directory, unit_conversion):
 
     for name, spd in spds.items():
         wl, values = spd.wavelengths * unit_conversion, spd.values
-        spd = colour.SpectralPowerDistribution(name,
-                                               dict(zip(wl, values)))
+        spd = colour.SpectralPowerDistribution(
+            dict(zip(wl, values)), name=name)
         name = re.sub(r'\\|/', '', name)
-        colour.write_spds_to_csv_file({name: spd},
-                                      os.path.join(directory,
-                                                   '{0}.csv'.format(name)))
-
-
+        colour.write_spds_to_csv_file({
+            name: spd
+        }, os.path.join(directory, '{0}.csv'.format(name)))

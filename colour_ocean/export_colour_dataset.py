@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 Export Colour Dataset
 =====================
@@ -17,7 +16,7 @@ from colour.characterisation.dataset.displays.lcd import (
     LCD_DISPLAYS_RGB_PRIMARIES)
 from colour.characterisation.dataset.cameras.dslr import (
     DSLR_CAMERAS_RGB_SPECTRAL_SENSITIVITIES)
-from colour_ocean.common import write_spds
+from colour_ocean.common import write_sds
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2013-2018 - Colour Developers'
@@ -26,10 +25,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['BIBLIOGRAPHY',
-           'OUTPUT_DIRECTORY',
-           'export_csv_dataset',
-           'write_bibliography']
+__all__ = [
+    'BIBLIOGRAPHY', 'OUTPUT_DIRECTORY', 'export_csv_dataset',
+    'write_bibliography'
+]
 
 BIBLIOGRAPHY = """BIBLIOGRAPHY
 ============
@@ -87,15 +86,13 @@ OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), 'csv', 'colour')
 def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
     if dataset in ('all', 'illuminants'):
         output_directory = os.path.join(directory, 'illuminants')
-        write_spds(colour.ILLUMINANTS_RELATIVE_SPDS,
-                   output_directory,
-                   unit_conversion=1e-9)
+        write_sds(
+            colour.ILLUMINANTS_SDS, output_directory, unit_conversion=1e-9)
 
     if dataset in ('all', 'light_sources'):
         output_directory = os.path.join(directory, 'light_sources')
-        write_spds(colour.LIGHT_SOURCES_RELATIVE_SPDS,
-                   output_directory,
-                   unit_conversion=1e-9)
+        write_sds(
+            colour.LIGHT_SOURCES_SDS, output_directory, unit_conversion=1e-9)
 
     if dataset in ('all', 'cmfs'):
         base_output_directory = os.path.join(directory, 'cmfs')
@@ -104,53 +101,67 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
                 continue
 
             output_directory = os.path.join(base_output_directory, name)
-            for channel in ('x', 'y', 'z'):
-                write_spds({cmfs.mapping[channel]: getattr(cmfs, channel)},
-                           output_directory,
-                           unit_conversion=1e-9)
+            for channel in cmfs.labels:
+                write_sds(
+                    {
+                        channel: cmfs.signals[channel]
+                    },
+                    output_directory,
+                    unit_conversion=1e-9)
 
     if dataset in ('all', 'characterisation'):
-        base_output_directory = os.path.join(
-            directory, 'characterisation', 'colour_checkers')
-        for name, colour_checker in colour.COLOURCHECKERS_SPDS.items():
+        base_output_directory = os.path.join(directory, 'characterisation',
+                                             'colour_checkers')
+        for name, colour_checker in colour.COLOURCHECKERS_SDS.items():
             if name in ('babel_average', 'cc_ohta'):
                 continue
 
             output_directory = os.path.join(base_output_directory, name)
-            write_spds(colour_checker, output_directory, unit_conversion=1e-9)
+            write_sds(colour_checker, output_directory, unit_conversion=1e-9)
 
-        base_output_directory = os.path.join(
-            directory, 'characterisation', 'cameras', 'dslr')
+        base_output_directory = os.path.join(directory, 'characterisation',
+                                             'cameras', 'dslr')
         for name, dslr in DSLR_CAMERAS_RGB_SPECTRAL_SENSITIVITIES.items():
             output_directory = os.path.join(base_output_directory, name)
-            for channel in ('x', 'y', 'z'):
-                write_spds({dslr.mapping[channel]: getattr(dslr, channel)},
-                           output_directory,
-                           unit_conversion=1e-9)
+            for channel in dslr.labels:
+                write_sds(
+                    {
+                        channel: dslr.signals[channel]
+                    },
+                    output_directory,
+                    unit_conversion=1e-9)
 
-        base_output_directory = os.path.join(
-            directory, 'characterisation', 'displays', 'crt')
+        base_output_directory = os.path.join(directory, 'characterisation',
+                                             'displays', 'crt')
         for name, crt in CRT_DISPLAYS_RGB_PRIMARIES.items():
             output_directory = os.path.join(base_output_directory, name)
-            for channel in ('x', 'y', 'z'):
-                write_spds({crt.mapping[channel]: getattr(crt, channel)},
-                           output_directory,
-                           unit_conversion=1e-9)
+            for channel in crt.labels:
+                write_sds(
+                    {
+                        channel: crt.signals[channel]
+                    },
+                    output_directory,
+                    unit_conversion=1e-9)
 
-        base_output_directory = os.path.join(
-            directory, 'characterisation', 'displays', 'lcd')
+        base_output_directory = os.path.join(directory, 'characterisation',
+                                             'displays', 'lcd')
         for name, lcd in LCD_DISPLAYS_RGB_PRIMARIES.items():
             output_directory = os.path.join(base_output_directory, name)
-            for channel in ('x', 'y', 'z'):
-                write_spds({lcd.mapping[channel]: getattr(lcd, channel)},
-                           output_directory,
-                           unit_conversion=1e-9)
+            for channel in lcd.labels:
+                write_sds(
+                    {
+                        channel: lcd.signals[channel]
+                    },
+                    output_directory,
+                    unit_conversion=1e-9)
 
     if dataset in ('all', 'quality'):
         output_directory = os.path.join(directory, 'quality', 'TCS')
-        write_spds(colour.TCS_SPDS, output_directory, unit_conversion=1e-9)
+        write_sds(
+            colour.quality.TCS_SDS, output_directory, unit_conversion=1e-9)
         output_directory = os.path.join(directory, 'quality', 'VS')
-        write_spds(colour.VS_SPDS, output_directory, unit_conversion=1e-9)
+        write_sds(
+            colour.quality.VS_SDS, output_directory, unit_conversion=1e-9)
 
 
 def write_bibliography(directory=OUTPUT_DIRECTORY):

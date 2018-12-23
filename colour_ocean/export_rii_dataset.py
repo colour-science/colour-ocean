@@ -13,7 +13,7 @@ import os
 import yaml
 
 import colour
-from colour_ocean.common import replace, write_spds
+from colour_ocean.common import replace, write_sds
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2013-2018 - Colour Developers'
@@ -66,17 +66,17 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, library=LIBRARY):
                         n = data[..., 1]
                         k = data[..., 2]
 
-                        spds = {
+                        sds = {
                             'n':
-                            colour.SpectralPowerDistribution(
+                            colour.SpectralDistribution(
                                 dict(zip(wavelengths, n)), name='n'),
                             'k':
-                            colour.SpectralPowerDistribution(
+                            colour.SpectralDistribution(
                                 dict(zip(wavelengths, k)), name='k')
                         }
 
-                        write_spds(
-                            spds, output_directory, unit_conversion=1e-6)
+                        write_sds(
+                            sds, output_directory, unit_conversion=1e-6)
 
 
 if __name__ == '__main__':

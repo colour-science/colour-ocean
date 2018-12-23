@@ -18,7 +18,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['replace', 'write_spds']
+__all__ = ['replace', 'write_sds']
 
 
 def replace(string, data):
@@ -27,14 +27,14 @@ def replace(string, data):
     return string
 
 
-def write_spds(spds, directory, unit_conversion):
+def write_sds(sds, directory, unit_conversion):
     not os.path.exists(directory) and os.makedirs(directory)
 
-    for name, spd in spds.items():
-        wl, values = spd.wavelengths * unit_conversion, spd.values
-        spd = colour.SpectralPowerDistribution(
+    for name, sd in sds.items():
+        wl, values = sd.wavelengths * unit_conversion, sd.values
+        sd = colour.SpectralDistribution(
             dict(zip(wl, values)), name=name)
         name = re.sub(r'\\|/', '', name)
-        colour.write_spds_to_csv_file({
-            name: spd
+        colour.write_sds_to_csv_file({
+            name: sd
         }, os.path.join(directory, '{0}.csv'.format(name)))

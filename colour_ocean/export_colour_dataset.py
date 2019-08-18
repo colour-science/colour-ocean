@@ -3,18 +3,18 @@
 Export Colour Dataset
 =====================
 
-Exports *Colour* dataset for "Eclat Digital - Ocean" renderer.
+Exports *Colour* datasets for "Eclat Digital - Ocean" renderer.
 """
 
 import codecs
 import os
 
 import colour
-from colour.characterisation.dataset.displays.crt import (
+from colour.characterisation.datasets.displays.crt import (
     CRT_DISPLAYS_RGB_PRIMARIES)
-from colour.characterisation.dataset.displays.lcd import (
+from colour.characterisation.datasets.displays.lcd import (
     LCD_DISPLAYS_RGB_PRIMARIES)
-from colour.characterisation.dataset.cameras.dslr import (
+from colour.characterisation.datasets.cameras.dslr import (
     DSLR_CAMERAS_RGB_SPECTRAL_SENSITIVITIES)
 from colour_ocean.common import write_sds
 

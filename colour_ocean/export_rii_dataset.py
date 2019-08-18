@@ -3,7 +3,7 @@
 Export Refractive Index Info Dataset
 ====================================
 
-Exports *http://refractiveindex.info/* dataset for "Eclat Digital - Ocean"
+Exports *http://refractiveindex.info/* datasets for "Eclat Digital - Ocean"
 renderer.
 """
 

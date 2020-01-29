@@ -159,9 +159,18 @@ def export_csv_dataset(directory=OUTPUT_DIRECTORY, dataset='all'):
         output_directory = os.path.join(directory, 'quality', 'TCS')
         write_sds(
             colour.quality.TCS_SDS, output_directory, unit_conversion=1e-9)
-        output_directory = os.path.join(directory, 'quality', 'VS')
+        output_directory = os.path.join(directory, 'quality', 'VS',
+                                        'NIST CQS 7.4')
         write_sds(
-            colour.quality.VS_SDS, output_directory, unit_conversion=1e-9)
+            colour.quality.VS_SDS['NIST CQS 7.4'],
+            output_directory,
+            unit_conversion=1e-9)
+        output_directory = os.path.join(directory, 'quality', 'VS',
+                                        'NIST CQS 9.0')
+        write_sds(
+            colour.quality.VS_SDS['NIST CQS 9.0'],
+            output_directory,
+            unit_conversion=1e-9)
 
 
 def write_bibliography(directory=OUTPUT_DIRECTORY):
